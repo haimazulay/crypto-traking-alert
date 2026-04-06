@@ -1,6 +1,7 @@
 requests
 matplotlib
 pytest
+pytest-cov
 python-dotenv
 pandas
 mplfinance
