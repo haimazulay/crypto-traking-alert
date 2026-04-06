@@ -12,7 +12,9 @@ from rich.terminal_theme import MONOKAI
 # Initialize Rich Console with recording enabled
 console = Console(record=True)
 
+# Class representing the core logic and workflow of the monitor tracker
 class TrackerBusinessLogic:
+    # Initialization method to instantiate business logic and dependent components
     def __init__(self, config):
         self.config = config
         self.api_client = CoinbaseApiClient(config.API_URL)
@@ -21,9 +23,11 @@ class TrackerBusinessLogic:
         
         # Note: If no password is provided in .env, notifier will be skipped gracefully
         self.notifier = None
+        # If statement checking if a password exists before initializing the email notifier
         if config.SENDER_PASSWORD:
             self.notifier = EmailNotifier(config.SENDER_EMAIL, config.SENDER_PASSWORD, config.RECEIVER_EMAIL)
 
+    # Method responsible for compiling an HTML execution dashboard featuring logs and graphs
     def generate_html_dashboard(self, max_price: float, line_path: str, candle_path: str):
         console.print("[bold cyan]Generating HTML Dashboard...[/bold cyan]")
         
@@ -81,31 +85,38 @@ class TrackerBusinessLogic:
             
         console.print(f"[bold green]Dashboard created successfully at {dashboard_path}[/bold green]")
 
+    # Method running the overall loop for periodic tracking data fetching and final reporting
     def run(self):
         console.print(Panel.fit("[bold green]Starting BPI Tracker System[/bold green]", border_style="green"))
         max_price = 0
         iterations = self.config.TOTAL_MINUTES
         
+        # For loop tracking iterations based on configuration settings over the specified minutes
         for i in track(range(iterations), description="[cyan]Monitoring BTC Price..."):
             price = self.api_client.get_current_bpi()
             
+            # If statement verifying price data was successfully retrieved
             if price:
                 console.print(f"[green]✔ Iteration {i+1}/{iterations}: BTC Price is ${price:,.2f}[/green]")
                 self.storage.save_record(price)
+                # If statement checking whether this current price constitutes a new max price
                 if price > max_price:
                     max_price = price
             else:
                 console.print(f"[red]✖ Failed to get price on iteration {i+1}.[/red]")
             
+            # If statement evaluating whether sleep is necessary (avoids sleeping on the last loop)
             if i < iterations - 1:
                 time.sleep(self.config.INTERVAL_SECONDS)
 
         console.print("\n[bold yellow]Data collection finished. Generating visualizers...[/bold yellow]")
         line_path, candle_path = self.visualizer.generate_all_graphs()
         
+        # If statement validating both graph paths were generated completely before preparing a dashboard
         if line_path and candle_path:
             self.generate_html_dashboard(max_price, line_path, candle_path)
             
+            # If statement checking if the notifier mechanism was properly instantiated earlier
             if self.notifier:
                 console.print("[cyan]Sending email report with Line graph...[/cyan]")
                 self.notifier.send_email(max_price, line_path)

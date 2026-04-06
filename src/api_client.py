@@ -1,9 +1,12 @@
 import requests
 
+# Class responsible for handling API communication with Coinbase
 class CoinbaseApiClient:
+    # Initialization method to properly set the api_url parameter
     def __init__(self, api_url):
         self.api_url = api_url
 
+    # Method to fetch the current Bitcoin Price Index (BPI) 
     def get_current_bpi(self):
         try:
             response = requests.get(self.api_url)

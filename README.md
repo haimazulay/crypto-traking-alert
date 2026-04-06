@@ -17,6 +17,7 @@ graph TD
     E --> G((HTML Dashboard))
     E --> H((Candlestick Chart))
     E --> I((Line Chart))
+```
 
 ## ⚙️ Installation & Usage
 

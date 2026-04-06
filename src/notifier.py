@@ -2,12 +2,15 @@ import smtplib
 from email.message import EmailMessage
 import os
 
+# Class configured to send email notifications utilizing SMTP connection
 class EmailNotifier:
+    # Initialization method taking credentials and configuration
     def __init__(self, sender_email, sender_password, receiver_email):
         self.sender_email = sender_email
         self.sender_password = sender_password
         self.receiver_email = receiver_email
 
+    # Method handling the process of attaching files and generating email messages
     def send_email(self, max_price, graph_path):
         msg = EmailMessage()
         msg['Subject'] = 'Bitcoin Price Index (BPI) Report'
@@ -20,6 +23,7 @@ class EmailNotifier:
         )
 
         # Attach the graph image if it exists
+        # If statement to check if the file graph exists before trying to read and attach
         if os.path.exists(graph_path):
             with open(graph_path, 'rb') as f:
                 image_data = f.read()

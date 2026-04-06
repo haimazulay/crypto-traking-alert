@@ -2,6 +2,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 
+# Function acting as a custom logger bootstrap setting up handlers and file locations
 def get_logger(name="BpiMonitor"):
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
@@ -19,6 +20,7 @@ def get_logger(name="BpiMonitor"):
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
 
+    # If statement checking if handlers are applied to prevent duplicating log messages
     if not logger.handlers:
         logger.addHandler(console_handler)
         logger.addHandler(file_handler)

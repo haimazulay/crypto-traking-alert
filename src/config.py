@@ -7,7 +7,7 @@ load_dotenv()
 API_URL = "https://api.coinbase.com/v2/prices/BTC-USD/spot"
 
 # Timing Settings (in seconds)
-INTERVAL_SECONDS = 1
+INTERVAL_SECONDS = 60
 TOTAL_MINUTES = 60
 
 # File Paths
