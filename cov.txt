@@ -1,0 +1,27 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.5, pytest-8.2.2, pluggy-1.6.0
+rootdir: C:\Repos\crypto-traking-alert
+plugins: anyio-4.9.0, asyncio-1.0.0, cov-5.0.0, respx-0.20.2
+asyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 5 items
+
+tests\test_api_client.py ..                                              [ 40%]
+tests\test_business_logic.py .                                           [ 60%]
+tests\test_storage.py ..                                                 [100%]
+
+---------- coverage: platform win32, python 3.13.5-final-0 -----------
+Name                    Stmts   Miss  Cover   Missing
+-----------------------------------------------------
+src\__init__.py             0      0   100%
+src\api_client.py          13      0   100%
+src\business_logic.py      51     11    78%   28, 32-86, 106, 121-122
+src\config.py              12     12     0%   1-21
+src\logger_setup.py        18     18     0%   1-28
+src\notifier.py            25     19    24%   9-11, 15-45
+src\storage.py             17      0   100%
+src\visualizer.py          51     39    24%   12-15, 19-31, 35-50, 55-66, 71-79
+-----------------------------------------------------
+TOTAL                     187     99    47%
+
+
+============================== 5 passed in 1.31s ==============================

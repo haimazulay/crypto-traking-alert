@@ -52,7 +52,7 @@ class BpiGraphGenerator:
     # Method constructing an OHLC-style Candlestick Chart reflecting the time range
     def generate_candlestick_chart(self, df: pd.DataFrame):
         # Resample data to 5-minute intervals for the candlestick (OHLC)
-        ohlc = df['price'].resample('10S').ohlc()
+        ohlc = df['price'].resample('10s').ohlc()
         ohlc.dropna(inplace=True)
 
         # If statement ensuring the down-sampled OHLC structural data has remaining row counts
