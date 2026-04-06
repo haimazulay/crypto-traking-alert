@@ -16,6 +16,7 @@ venv.bak/
 output/
 bpi_data.json
 bpi_graph.png
+test_results.txt
 
 # Pytest / coverage
 .pytest_cache/
