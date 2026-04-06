@@ -17,6 +17,8 @@ output/
 bpi_data.json
 bpi_graph.png
 test_results.txt
+cov.txt
+cov2.txt
 
 # Pytest / coverage
 .pytest_cache/
