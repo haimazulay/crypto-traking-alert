@@ -1,0 +1,7 @@
+requests
+matplotlib
+pytest
+python-dotenv
+pandas
+mplfinance
+rich
